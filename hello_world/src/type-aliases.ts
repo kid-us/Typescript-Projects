@@ -10,6 +10,5 @@ let employee_info: Employee = {
     retire: (date:Date) =>
         {
             console.log(date);
-            
         }
 }
