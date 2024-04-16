@@ -1,1 +1,1 @@
-let user: [number, string] = [2, "Lorem"] 
+let user: [number, string] = [2, "Lorem"];
