@@ -4,8 +4,13 @@ let c: boolean[] = [true, false, true];
 let d: {age: number} = {age: 1};
 let e: number[] = [3];
 let f: any;
-let g: any[] = []
+let g: any[] = [];
 
+// Enums
+const enum Gender {Female= "F", Male = "M"};
+
+// Tuples
+const info : [number, string] = [2, "Mosh"];
 
 // Objects
 let song : {
