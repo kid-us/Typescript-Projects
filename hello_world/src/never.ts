@@ -10,6 +10,6 @@ function processEvents(): never {
 }
 
 processEvents();
-render('---');
-console.log("Hello World");
+// render('---');
+// console.log("Hello World");
 
