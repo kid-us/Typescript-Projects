@@ -16,5 +16,6 @@ class Account {
 }
 const account = new Account(1, "Mosh", 0);
 account.deposit(100);
-console.log(account instanceof Account);
+account.nickname = "Lorem";
+console.log(account);
 //# sourceMappingURL=index.js.map
