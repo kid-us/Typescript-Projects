@@ -18,25 +18,33 @@
 // console.log(kgToLbs("10kg"));
 // console.log(kgToLbs(10));
 
-// class Ride {
+class Person {
+    constructor (public firstName: string, public lastName: string){}
 
-//     private static _activeRides:number = 0
+    get fullName(){
+        return this.firstName + "  " + this.lastName;
+    }
 
-//     start() { Ride._activeRides++; }
-//     stop() { Ride._activeRides--; }
+     walk() {
+        console.log("Walking");
+    }
+}
 
-//     static get activeRide(){
-//         return Ride._activeRides;
-//     }
+// Inherting the person class properties which is First Name and Last Name
+class Student extends Person {
+    constructor (public stundentId: number, firstName: string, lastName: string){
+        super(firstName, lastName);
+    }
 
-// }
+    getTest(){
+        console.log("Getting a Test");
+    }
+}
 
-// let ride1 = new Ride();
-// ride1.start();
+let student = new Student(1, "Lorem", "Ipsum");
+console.log(student);
+console.log(student.fullName);
 
-// let ride2 = new Ride();
-// ride2.start();
 
-// console.log(Ride.activeRide);
-// console.log(Ride.activeRide);
+
 
