@@ -1,14 +1,19 @@
 // Creating Classes
 class Account  {
-    readonly id: number;
-    owner: string;
-    private _balance: number;
+    // readonly id: number;
+    // owner: string;
+    // private _balance: number;
+    //#### We don't need the upper lines of code if we fix our constructor parameter properties
     nickname?: string;
 
-    constructor (id: number, owner: string, balance: number){
-        this.id = id;
-        this.owner = owner;
-        this._balance = balance;
+    constructor (
+        public readonly id: number, 
+        public owner: string, 
+        private _balance: number){
+        // We can write the parameter like this^ way instead of this
+        // this.id = id;
+        // this.owner = owner;
+        // this._balance = balance;
     }
 
     deposit(amount: number): void {
@@ -29,7 +34,6 @@ class Account  {
 }
 
 // Creating object instance
-
 const account = new Account(1, "Mosh", 100);
 account.nickname = "Lorem";
 console.log(account.getBalance());
