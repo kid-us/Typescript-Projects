@@ -6,3 +6,5 @@ function render (document : unknown) : string | number {
         return 2;
     }
 }
+
+render("Lol")
