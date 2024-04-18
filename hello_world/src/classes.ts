@@ -22,18 +22,28 @@ class Account  {
         }else{
             this._balance += amount
         }
-        this.calculateTax();
+        // this.calculateTax();
     }
 
-    getBalance(): number {
+    get balance(): number {
         return this._balance;
     }
 
-    private calculateTax () {
+    set balance(amount: number) {
+        if(amount < 0){
+            throw new Error("Invalid Amount")
+        }else[
+            this._balance = amount
+        ]
     }
+
+    // This function only used inside this class we can't call it from the outside of the class.
+    // private calculateTax () {
+    // }
 }
 
 // Creating object instance
 const account = new Account(1, "Mosh", 100);
-account.nickname = "Lorem";
-console.log(account.getBalance());
+console.log(account.balance);
+
+// account.balance = 2;
