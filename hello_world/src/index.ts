@@ -18,34 +18,25 @@
 // console.log(kgToLbs("10kg"));
 // console.log(kgToLbs(10));
 
-// Creating Classes
+// class Ride {
 
-// class Account  {
-//     readonly id: number;
-//     owner: string;
-//     balance: number;
-//     nickname?: string;
+//     private static _activeRides:number = 0
 
-//     constructor (id: number, owner: string, balance: number){
-//         this.id = id;
-//         this.owner = owner;
-//         this.balance = balance;
+//     start() { Ride._activeRides++; }
+//     stop() { Ride._activeRides--; }
+
+//     static get activeRide(){
+//         return Ride._activeRides;
 //     }
 
-//     deposit(amount: number): void {
-//         if(amount <=0 ){
-//             throw new Error("Invalid Amount")
-//         }else{
-//             this.balance += amount
-//         }
-
-//     }
 // }
 
-// // Creating object instance
+// let ride1 = new Ride();
+// ride1.start();
 
-// const account = new Account(1, "Mosh", 0);
-// account.deposit(100);
+// let ride2 = new Ride();
+// ride2.start();
 
-// account.nickname = "Lorem";
-// console.log(account);
+// console.log(Ride.activeRide);
+// console.log(Ride.activeRide);
+
