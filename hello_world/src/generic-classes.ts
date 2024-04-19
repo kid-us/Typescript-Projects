@@ -1,5 +1,5 @@
-class GenericClasses {
-    constructor(public key: number, public value: string){}
+class GenericClasses<K,V> {
+    constructor(public key: K, public value: V){}
 }
 
-let keyValue = new GenericClasses(1, "lorem")
+let keyValue = new GenericClasses(1, "lorem");
