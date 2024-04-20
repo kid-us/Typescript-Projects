@@ -3,7 +3,7 @@
 
 import * as Lorem from './exporting-importing';
 
-let lorem  = Lorem.Lorem
-let ipsum = Lorem.Ipsum;
+let lorem  = new Lorem.Lorem("Lorem");
+let ipsum = new Lorem.Ipsum(42);
 
 console.log(lorem, ipsum);
