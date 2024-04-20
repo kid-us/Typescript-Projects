@@ -1,13 +1,20 @@
-// function Component(constructor: Function){
-//     console.log("Constructor decorator called");
-//     constructor.prototype.uniqueId = Date.now();
-//     constructor.prototype.insertInDom = () =>{
-//         console.log("Inserting the component in the Dom");
-//     }
-// }
+function Log(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const original = descriptor.value as Function;
 
-// @Component
-// class ClassComponent{}
+    descriptor.value = function (...args: any) {
+        console.log("Before");
+        original.call(this, ...args);
+        console.log("After");
+    }
+}
+
+class Person {
+    @Log
+    say(message: string){
+        console.log("Person "+ message + " say hello!");
+    }
+}
 
 
-
+let person = new Person();
+person.say("Mosh");
