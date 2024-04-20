@@ -1,22 +1,22 @@
-// https://mywebsite.com/users
-// https://mywebsite.com/products
+// // https://mywebsite.com/users
+// // https://mywebsite.com/products
 
-interface Result<T> {
-    data: T | null;
-    error: string | null;
-}
+// interface Result<T> {
+//     data: T | null;
+//     error: string | null;
+// }
 
-function fetch<T>(url: string): Result<T>{
-    return {data:null, error:null};
-}
+// function fetch<T>(url: string): Result<T>{
+//     return {data:null, error:null};
+// }
 
-interface Users{
-    username: string;
-}
+// interface Users{
+//     username: string;
+// }
 
-interface Product{
-    title: string;
-}
+// interface Product{
+//     title: string;
+// }
 
-let result = fetch<Product>('url');
-result.data?.title
+// let result = fetch<Product>('url');
+// result.data?.title

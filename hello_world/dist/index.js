@@ -1,43 +1,20 @@
 "use strict";
-class Person {
-    constructor(firstName, lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-    get fullName() {
-        return this.firstName + "  " + this.lastName;
-    }
-    walk() {
-        console.log("Ealking");
-    }
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+function Component(constructor) {
+    console.log("Constructor decorator called");
+    constructor.prototype.uniqueId = Date.now();
+    constructor.prototype.insertInDom = () => {
+        console.log("Inserting the component in the Dom");
+    };
 }
-class Student extends Person {
-    constructor(stundentId, firstName, lastName) {
-        super(firstName, lastName);
-        this.stundentId = stundentId;
-    }
-    getTest() {
-        console.log("Getting a Test");
-    }
-}
-class Teacher extends Person {
-    get fullName() {
-        return "Professor " + super.fullName;
-    }
-}
-class Principal extends Person {
-    get fullName() {
-        return "principal " + super.fullName;
-    }
-}
-printNames([
-    new Student(1, "Lorem", "Ipsum"),
-    new Teacher("Lorem", "Ipsum"),
-    new Principal("Lorem", "Ipsum"),
-]);
-function printNames(people) {
-    for (let person of people) {
-        console.log(person.fullName);
-    }
-}
+let ClassComponent = class ClassComponent {
+};
+ClassComponent = __decorate([
+    Component
+], ClassComponent);
 //# sourceMappingURL=index.js.map
