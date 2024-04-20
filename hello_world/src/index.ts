@@ -1,13 +1,13 @@
-function Component(constructor: Function){
-    console.log("Constructor decorator called");
-    constructor.prototype.uniqueId = Date.now();
-    constructor.prototype.insertInDom = () =>{
-        console.log("Inserting the component in the Dom");
-    }
-}
+// function Component(constructor: Function){
+//     console.log("Constructor decorator called");
+//     constructor.prototype.uniqueId = Date.now();
+//     constructor.prototype.insertInDom = () =>{
+//         console.log("Inserting the component in the Dom");
+//     }
+// }
 
-@Component
-class ClassComponent{}
+// @Component
+// class ClassComponent{}
 
 
 
