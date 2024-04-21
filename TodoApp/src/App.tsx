@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ReminderList from './components/ReminderList'
 import Reminder from './models/reminder'
 import ReminderService from './services/reminder'
+import NewReminder from './components/NewReminder';
 
 function App() {
  const [reminders, setReminder] = useState<Reminder[]>([]);
@@ -16,14 +17,23 @@ function App() {
   setReminder(reminders);
  }
 
+ const removeReminders = (id:number) => {
+  setReminder(reminders.filter(reminder => reminder.id !== id));
+ }
 
+ const addReminders = (comment: string) => {
+  // setReminder([comment, ...reminders]);
+  console.log(comment);
+  
+ }
 
   return (
     <>
       <div>
         <p>Hello React Typescript</p>
         <div className="fs-5">
-          <ReminderList  items={reminders} />
+          <NewReminder onAddReminder={addReminders} />
+          <ReminderList  items={reminders} onRemoveReminder={removeReminders} />
         </div>
        </div>
     </>
