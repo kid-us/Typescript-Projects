@@ -1,16 +1,20 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css'
+import ReminderList from './components/ReminderList'
+import Reminder from './models/reminder'
 
+const reminders: Reminder[]  = [
+  {id: 1, title: "Reminder One"},
+  {id: 2, title: "Reminder Two"},
+  {id: 3, title: "Reminder Three"},
+];
 function App() {
-  // const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
         <p>Hello React Typescript</p>
-        <button className='btn btn-danger'>Click Me</button>
+        <div className="fs-5">
+          <ReminderList  items={reminders} />
+        </div>
        </div>
     </>
   )
