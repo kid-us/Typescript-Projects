@@ -9,8 +9,10 @@ const NewReminder = ({onAddReminder}: AddNewReminder) => {
 
     const onSubmitForm = (e: React.FormEvent) => {
         e.preventDefault();
-        // console.log(reminder);
-        onAddReminder(reminder)
+        if(reminder !== ""){
+            onAddReminder(reminder)
+            setReminder('');
+        }
     }
   return (
     <form onSubmit={onSubmitForm}>
