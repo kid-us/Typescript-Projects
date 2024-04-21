@@ -1,4 +1,6 @@
 export default interface Reminder {
     id: number;
-    title: string;
+    postId: number;
+    userId: number;
+    comment: string;
 }
