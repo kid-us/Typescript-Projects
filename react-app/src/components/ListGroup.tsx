@@ -1,16 +1,12 @@
 import { useState } from "react";
 
-const ListGroup = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+interface Props {
+  items: string[];
+  heading: string;
+}
 
-  let cities: string[] = [
-    "New York",
-    "San francisco",
-    "Miami",
-    "London",
-    "Seoul",
-    "Tokio",
-  ];
+const ListGroup = ({ items, heading }: Props) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   //   Event Handler
   const handleClickEvent = (item: string, index: number) => {
@@ -20,10 +16,10 @@ const ListGroup = () => {
 
   return (
     <div>
-      <h1>Cities</h1>
-      {cities.length === 0 && <p>City not Found</p>}
+      <h1>{heading}</h1>
+      {items.length === 0 && <p>City not Found</p>}
       <ul className="list-group">
-        {cities.map((item, index) => (
+        {items.map((item, index) => (
           <li
             onClick={() => handleClickEvent(item, index)}
             className={`list-group-item ${selectedIndex === index && "active"}`}
