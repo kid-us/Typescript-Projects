@@ -2,7 +2,7 @@
 const Message = () => {
   return (
     <div>
-        <h1>Message</h1>
+        <p className="small font-monospace">Message</p>
     </div>
   )
 }
