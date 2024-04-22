@@ -3,14 +3,14 @@ import { useState } from "react";
 interface Props {
   items: string[];
   heading: string;
+  onSelectItem: (item: string) => void;
 }
 
-const ListGroup = ({ items, heading }: Props) => {
+const ListGroup = ({ items, heading, onSelectItem }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   //   Event Handler
-  const handleClickEvent = (item: string, index: number) => {
-    console.log(item);
+  const handleClickEvent = (index: number) => {
     setSelectedIndex(index);
   };
 
@@ -21,7 +21,10 @@ const ListGroup = ({ items, heading }: Props) => {
       <ul className="list-group">
         {items.map((item, index) => (
           <li
-            onClick={() => handleClickEvent(item, index)}
+            onClick={() => {
+              handleClickEvent(index);
+              onSelectItem(item);
+            }}
             className={`list-group-item ${selectedIndex === index && "active"}`}
             key={item}
           >
