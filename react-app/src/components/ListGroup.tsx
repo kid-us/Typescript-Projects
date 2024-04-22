@@ -1,6 +1,5 @@
 const ListGroup = () => {
-  type city = string[];
-  let cities: city = [
+  let cities: string[] = [
     "New York",
     "San francisco",
     "Miami",
