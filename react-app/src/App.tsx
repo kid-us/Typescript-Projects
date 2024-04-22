@@ -1,9 +1,12 @@
+import { useState } from "react";
 import "./App.css";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
 
 function App() {
+  const [showAlert, setShowAlert] = useState(false);
+
   let cities: string[] = [
     "New York",
     "San francisco",
@@ -26,11 +29,13 @@ function App() {
           heading="Cities"
           onSelectItem={handleSelectItem}
         />
-        <Alert>
-          Hello <span className="fw-semibold">React</span> welcome
-        </Alert>
+        {showAlert && (
+          <Alert onClose={() => setShowAlert(false)}>
+            Hello <span className="fw-semibold">React</span> welcome
+          </Alert>
+        )}
 
-        <Button onClick={() => console.log("clicked")} color="success">
+        <Button onClick={() => setShowAlert(true)} color="success">
           My Button
         </Button>
       </div>
