@@ -1,30 +1,29 @@
-import { useEffect, useState } from 'react';
-import ReminderList from './components/ReminderList'
-import Reminder from './models/reminder'
-import ReminderService from './services/reminder'
-import NewReminder from './components/NewReminder';
+import { useEffect, useState } from "react";
+import ReminderList from "./components/ReminderList";
+import Reminder from "./models/reminder";
+import ReminderService from "./services/reminder";
+import NewReminder from "./components/NewReminder";
 
 function App() {
- const [reminders, setReminder] = useState<Reminder[]>([]);
+  const [reminders, setReminder] = useState<Reminder[]>([]);
 
- useEffect(()=> {
-  loadReminders();
- }, []);
+  useEffect(() => {
+    loadReminders();
+  }, []);
 
+  const loadReminders = async () => {
+    const reminders = await ReminderService.getReminders();
+    setReminder(reminders);
+  };
 
- const loadReminders = async ()=>{
-  const reminders = await ReminderService.getReminders();
-  setReminder(reminders);
- }
+  const removeReminders = (id: number) => {
+    setReminder(reminders.filter((reminder) => reminder.id !== id));
+  };
 
- const removeReminders = (id:number) => {
-  setReminder(reminders.filter(reminder => reminder.id !== id));
- }
-
- const addReminders = async (comment: string) => {
-  const newComment = await ReminderService.addReminder(comment);
-   setReminder([newComment, ...reminders]);
- }
+  const addReminders = async (comment: string) => {
+    const newComment = await ReminderService.addReminder(comment);
+    setReminder([newComment, ...reminders]);
+  };
 
   return (
     <>
@@ -32,11 +31,11 @@ function App() {
         <p>Hello React Typescript</p>
         <div className="fs-5">
           <NewReminder onAddReminder={addReminders} />
-          <ReminderList  items={reminders} onRemoveReminder={removeReminders} />
+          <ReminderList items={reminders} onRemoveReminder={removeReminders} />
         </div>
-       </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
