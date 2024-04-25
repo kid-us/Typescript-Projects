@@ -5,6 +5,7 @@ import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
 import Navbar from "./components/Navbar";
 import Cart from "./components/Cart";
+import ExpandText from "./components/ExpandText";
 
 function App() {
   const [showAlert, setShowAlert] = useState(false);
@@ -144,20 +145,44 @@ function App() {
         <Button onClick={() => handleAlert()} color="success">
           My Button
         </Button>
+      </div>
+      {/* Exercise 2 */}
+      <div className="alert alert-info my-5">
+        <ExpandText maxLength={100}>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum
+          consectetur sequi cum. Quas, pariatur quidem. Maxime vitae nemo cumque
+          delectus cupiditate vel eos, quae vero a architecto molestiae sapiente
+          recusandae fuga ipsam tempora id consequuntur temporibus nostrum quam
+          neque quia sint sed exercitationem! Cupiditate voluptatibus
+          consectetur eveniet porro beatae voluptatum repellat voluptate, labore
+          explicabo minus ex veritatis fugit ab ullam est et officiis corrupti
+          excepturi doloremque sint eum eaque unde. Itaque aliquam nam natus
+          odit culpa, accusamus saepe nostrum quae eveniet est ab blanditiis,
+          aut illum eos obcaecati veniam dicta numquam officiis dolorem optio?
+          Animi, reprehenderit? Rerum dolor nihil qui.
+        </ExpandText>
+      </div>
+
+      {/* Exercise 1*/}
+      <div>
+        {/* Drink */}
         <p>{drink.price}</p>
         <button onClick={() => handleUpdateObject()}>
           Click and Let's update the Object
         </button>
+        {/* Customer */}
         <br />
         <p>{customer.address.zipCode}</p>
         <button onClick={() => handleNestedObjectUpdate()}>
           Click and Let's update nested Object
         </button>
+        {/* Tag */}
         <br />
         <p>{tags}</p>
         <button onClick={() => handleArray()}>
           Click and Let's update an array
         </button>
+        {/* Bug */}
         <br />
         {bugs.map((bug, index) => (
           <li key={index}>{bug.fixed}</li>
