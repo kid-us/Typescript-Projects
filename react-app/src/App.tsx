@@ -11,9 +11,14 @@ function App() {
   // const [firstName, setFirstName] = useState("Lorem");
   // const [lastName, setLastName] = useState("Ipsum");
 
-  const [person, setPerson] = useState({
-    firstName: "Lorem",
-    lastName: "Ipsum",
+  // const [person, setPerson] = useState({
+  //   firstName: "Lorem",
+  //   lastName: "Ipsum",
+  // });
+
+  const [drink, setDrink] = useState({
+    title: "Americano",
+    price: 5,
   });
 
   let cities: string[] = [
@@ -35,6 +40,15 @@ function App() {
     console.log(showAlert);
   };
 
+  const handleUpdateObject = () => {
+    // const newDrink = {
+    //   ...drink,
+    //   price: drink.price + 1,
+    // };
+
+    setDrink({ ...drink, price: drink.price + 1 });
+  };
+
   return (
     <>
       <div>
@@ -53,7 +67,8 @@ function App() {
           My Button
         </Button>
 
-        <p>{person.firstName + " " + person.lastName}</p>
+        <p>{drink.price}</p>
+        <button onClick={() => handleUpdateObject()}> Click me</button>
       </div>
     </>
   );
