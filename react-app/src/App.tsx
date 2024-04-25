@@ -21,6 +21,11 @@ function App() {
     console.log(item);
   };
 
+  const handleModal = () => {
+    setShowAlert(true);
+    console.log(showAlert);
+  };
+
   return (
     <>
       <div>
@@ -35,7 +40,7 @@ function App() {
           </Alert>
         )}
 
-        <Button onClick={() => setShowAlert(true)} color="success">
+        <Button onClick={() => handleModal()} color="success">
           My Button
         </Button>
       </div>
