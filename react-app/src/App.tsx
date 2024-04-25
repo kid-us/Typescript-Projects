@@ -7,6 +7,15 @@ import ListGroup from "./components/ListGroup";
 function App() {
   const [showAlert, setShowAlert] = useState(false);
 
+  //
+  // const [firstName, setFirstName] = useState("Lorem");
+  // const [lastName, setLastName] = useState("Ipsum");
+
+  const [person, setPerson] = useState({
+    firstName: "Lorem",
+    lastName: "Ipsum",
+  });
+
   let cities: string[] = [
     "New York",
     "San francisco",
@@ -21,7 +30,7 @@ function App() {
     console.log(item);
   };
 
-  const handleModal = () => {
+  const handleAlert = () => {
     setShowAlert(true);
     console.log(showAlert);
   };
@@ -40,9 +49,11 @@ function App() {
           </Alert>
         )}
 
-        <Button onClick={() => handleModal()} color="success">
+        <Button onClick={() => handleAlert()} color="success">
           My Button
         </Button>
+
+        <p>{person.firstName + " " + person.lastName}</p>
       </div>
     </>
   );
