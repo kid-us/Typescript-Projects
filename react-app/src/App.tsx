@@ -21,6 +21,14 @@ function App() {
     price: 5,
   });
 
+  const [customer, setCustomer] = useState({
+    name: "Lorem",
+    address: {
+      city: "Dolor",
+      zipCode: 1210,
+    },
+  });
+
   let cities: string[] = [
     "New York",
     "San francisco",
@@ -49,6 +57,13 @@ function App() {
     setDrink({ ...drink, price: drink.price + 1 });
   };
 
+  const handleNestedObjectUpdate = () => {
+    setCustomer({
+      ...customer,
+      address: { ...customer.address, zipCode: 1012 },
+    });
+  };
+
   return (
     <>
       <div>
@@ -68,7 +83,9 @@ function App() {
         </Button>
 
         <p>{drink.price}</p>
+        <p>{customer.address.zipCode}</p>
         <button onClick={() => handleUpdateObject()}> Click me</button>
+        <button onClick={() => handleNestedObjectUpdate()}> Click</button>
       </div>
     </>
   );
