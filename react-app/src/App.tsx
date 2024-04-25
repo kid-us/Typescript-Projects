@@ -39,6 +39,19 @@ function App() {
   ]);
 
   const [cartItems, setCartItems] = useState(["Product 1", "Product 2"]);
+
+  const [game, setGame] = useState({
+    id: 1,
+    player: {
+      name: "John",
+    },
+  });
+
+  const [pizza, setPizza] = useState({
+    name: "Spicy Pepperoni",
+    toppings: ["Mushroom"],
+  });
+
   let cities: string[] = [
     "New York",
     "San francisco",
@@ -91,6 +104,14 @@ function App() {
     );
   };
 
+  const handleChangeName = () => {
+    setGame({ ...game, player: { ...game.player, name: "Lorem" } });
+  };
+
+  const handleToopings = () => {
+    setPizza({ ...pizza, toppings: [...pizza.toppings, "cheese"] });
+  };
+
   return (
     <>
       <div>
@@ -130,6 +151,16 @@ function App() {
         </button>
         <Navbar cartItemCount={cartItems.length} />
         <Cart cartItems={cartItems} onRemove={() => setCartItems([])} />
+        <br />
+        <p>{game.player.name}</p>
+        <button onClick={() => handleChangeName()}>
+          Click and Let's change the name John to Lorem
+        </button>
+        <br />
+        <p>{pizza.toppings}</p>
+        <button onClick={() => handleToopings()}>
+          Click and Let's change the Topping
+        </button>
       </div>
     </>
   );
