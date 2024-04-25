@@ -3,6 +3,8 @@ import "./App.css";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
+import Navbar from "./components/Navbar";
+import Cart from "./components/Cart";
 
 function App() {
   const [showAlert, setShowAlert] = useState(false);
@@ -36,6 +38,7 @@ function App() {
     { id: 2, title: "Bug 1", fixed: "false" },
   ]);
 
+  const [cartItems, setCartItems] = useState(["Product 1", "Product 2"]);
   let cities: string[] = [
     "New York",
     "San francisco",
@@ -125,6 +128,8 @@ function App() {
         <button onClick={() => handleArrayObject()}>
           Click and Let's update an object array
         </button>
+        <Navbar cartItemCount={cartItems.length} />
+        <Cart cartItems={cartItems} onRemove={() => setCartItems([])} />
       </div>
     </>
   );
