@@ -31,6 +31,11 @@ function App() {
 
   const [tags, setTags] = useState(["happy", "cheerful"]);
 
+  const [bugs, setBugs] = useState([
+    { id: 1, title: "Bug 1", fixed: "false" },
+    { id: 2, title: "Bug 1", fixed: "false" },
+  ]);
+
   let cities: string[] = [
     "New York",
     "San francisco",
@@ -77,6 +82,12 @@ function App() {
     setTags(tags.map((tag) => (tag === "happy" ? "happiness" : tag)));
   };
 
+  const handleArrayObject = () => {
+    setBugs(
+      bugs.map((bug) => (bug.id === 1 ? { ...bug, fixed: "true" } : bug))
+    );
+  };
+
   return (
     <>
       <div>
@@ -106,6 +117,13 @@ function App() {
         <p>{tags}</p>
         <button onClick={() => handleArray()}>
           Click and Let's update an array
+        </button>
+        <br />
+        {bugs.map((bug, index) => (
+          <li key={index}>{bug.fixed}</li>
+        ))}
+        <button onClick={() => handleArrayObject()}>
+          Click and Let's update an object array
         </button>
       </div>
     </>
