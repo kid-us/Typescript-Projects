@@ -9,7 +9,6 @@ import Cart from "./components/Cart";
 function App() {
   const [showAlert, setShowAlert] = useState(false);
 
-  //
   // const [firstName, setFirstName] = useState("Lorem");
   // const [lastName, setLastName] = useState("Ipsum");
 
@@ -51,6 +50,23 @@ function App() {
     name: "Spicy Pepperoni",
     toppings: ["Mushroom"],
   });
+
+  const [cart, setCart] = useState({
+    discount: 0.1,
+    items: [
+      { id: 1, title: "Product 1", quantity: 1 },
+      { id: 2, title: "Product 2", quantity: 2 },
+    ],
+  });
+
+  const handleCart = () => {
+    setCart({
+      ...cart,
+      items: cart.items.map((item) =>
+        item.id === 1 ? { ...item, title: "Edited" } : item
+      ),
+    });
+  };
 
   let cities: string[] = [
     "New York",
@@ -151,16 +167,26 @@ function App() {
         </button>
         <Navbar cartItemCount={cartItems.length} />
         <Cart cartItems={cartItems} onRemove={() => setCartItems([])} />
+        {/* Game */}
         <br />
         <p>{game.player.name}</p>
         <button onClick={() => handleChangeName()}>
           Click and Let's change the name John to Lorem
         </button>
+        {/* Pizza */}
         <br />
         <p>{pizza.toppings}</p>
         <button onClick={() => handleToopings()}>
           Click and Let's change the Topping
         </button>
+        {/* Cart */}
+        <br />
+        <p>
+          {cart.items.map((item) => (
+            <li key={item.id}>{item.title}</li>
+          ))}
+        </p>
+        <button onClick={() => handleCart()}>Click and Let's cart title</button>
       </div>
     </>
   );
