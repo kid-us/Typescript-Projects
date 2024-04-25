@@ -29,6 +29,8 @@ function App() {
     },
   });
 
+  const [tags, setTags] = useState(["happy", "cheerful"]);
+
   let cities: string[] = [
     "New York",
     "San francisco",
@@ -64,6 +66,17 @@ function App() {
     });
   };
 
+  const handleArray = () => {
+    // Add
+    // setTags([...tags, "exciting"]);
+
+    // Remove
+    // setTags(tags.filter((tag) => tag !== "happy"));
+
+    // Update
+    setTags(tags.map((tag) => (tag === "happy" ? "happiness" : tag)));
+  };
+
   return (
     <>
       <div>
@@ -77,15 +90,23 @@ function App() {
             Hello <span className="fw-semibold">React</span> welcome
           </Alert>
         )}
-
         <Button onClick={() => handleAlert()} color="success">
           My Button
         </Button>
-
         <p>{drink.price}</p>
+        <button onClick={() => handleUpdateObject()}>
+          Click and Let's update the Object
+        </button>
+        <br />
         <p>{customer.address.zipCode}</p>
-        <button onClick={() => handleUpdateObject()}> Click me</button>
-        <button onClick={() => handleNestedObjectUpdate()}> Click</button>
+        <button onClick={() => handleNestedObjectUpdate()}>
+          Click and Let's update nested Object
+        </button>
+        <br />
+        <p>{tags}</p>
+        <button onClick={() => handleArray()}>
+          Click and Let's update an array
+        </button>
       </div>
     </>
   );
