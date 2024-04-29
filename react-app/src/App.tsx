@@ -1,11 +1,11 @@
 import "./App.css";
-import { Form } from "./components/Form";
+import { ExpenseTracker } from "./components/ExpenseTracker";
 
 function App() {
   return (
     <>
       <div className="p-5">
-        <Form />
+        <ExpenseTracker />
       </div>
     </>
   );
