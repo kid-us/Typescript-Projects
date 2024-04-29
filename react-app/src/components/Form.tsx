@@ -1,17 +1,22 @@
-// import { FormEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 
-interface FormData {
-  name: string;
-  age: number;
-}
+const schema = z.object({
+  name: z.string().min(3, { message: "Name at least must be 3 characters!" }),
+  age: z
+    .number({ invalid_type_error: "Age is required" })
+    .min(18, { message: "Age must be greater than 18" }),
+});
+
+type FormData = z.infer<typeof schema>;
 
 export const Form = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
@@ -25,18 +30,13 @@ export const Form = () => {
             Name
           </label>
           <input
-            {...register("name", { required: true, minLength: 3 })}
+            {...register("name")}
             id="name"
             type="text"
             className="form-control"
           />
-          {errors.name?.type === "required" && (
-            <p className="text-danger small">The name field is required!</p>
-          )}
-          {errors.name?.type === "minLength" && (
-            <p className="text-danger small">
-              The name must be at least 3 chars.
-            </p>
+          {errors.name && (
+            <p className="text-danger small">{errors.name.message}</p>
           )}
         </div>
         <div className="mb-2">
@@ -44,13 +44,13 @@ export const Form = () => {
             Age
           </label>
           <input
-            {...register("age", { required: true })}
+            {...register("age", { valueAsNumber: true })}
             id="age"
             type="number"
             className="form-control"
           />
-          {errors.age?.type === "required" && (
-            <p className="text-danger small">The age field is required!</p>
+          {errors.age && (
+            <p className="text-danger small">{errors.age.message}</p>
           )}
         </div>
         <button type="submit" className="btn btn-primary">
