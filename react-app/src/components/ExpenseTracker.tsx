@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import ExpenseForm from "./ExpenseForm";
+import ExpenseForm from "../expense-tracker/components/ExpenseForm";
 
 export const ExpenseTracker = () => {
   return (

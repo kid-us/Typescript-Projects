@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./App.css";
 import ExpenseList from "./expense-tracker/components/ExpenseList";
 import ExpenseFilter from "./expense-tracker/components/ExpenseFilter";
+import ExpenseForm from "./expense-tracker/components/ExpenseForm";
+
+export const categories = ["Groceries", "Utilities", "Entertainment"];
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -24,16 +27,22 @@ function App() {
 
   return (
     <>
-      <div className="p-5">
-        <div className="mb-3">
-          <ExpenseFilter
-            onSelectCategory={(category) => setSelectedCategory(category)}
+      <div className="p-5 container row justify-content-center">
+        <div className="col-6 shadow p-5">
+          <p className="fw-semibold font-monospace fs-5">Expense Tracker</p>
+          <div className="mb-5">
+            <ExpenseForm />
+          </div>
+          <div className="mb-3">
+            <ExpenseFilter
+              onSelectCategory={(category) => setSelectedCategory(category)}
+            />
+          </div>
+          <ExpenseList
+            expense={visibleExpenses}
+            onDelete={(id) => handleDelete(id)}
           />
         </div>
-        <ExpenseList
-          expense={visibleExpenses}
-          onDelete={(id) => handleDelete(id)}
-        />
       </div>
     </>
   );
