@@ -1,29 +1,34 @@
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
-
-import { categories } from "../../App";
+import categories from "../expenseCategories";
 
 const schema = z.object({
   description: z
     .string()
-    .min(2, { message: "Description must be at least 3 chars." }),
-  amount: z.number({ invalid_type_error: "Amount is required" }),
-  category: z.string(),
+    .min(2, { message: "Description must be at least 3 chars." })
+    .max(50),
+  amount: z
+    .number({ invalid_type_error: "Amount is required" })
+    .min(1)
+    .max(100_000),
+  category: z.enum(categories, {
+    errorMap: () => ({ message: "Category is required." }),
+  }),
 });
 
-const ExpenseForm = () => {
-  type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>;
 
+interface Props {
+  onSubmit: (data: FormData) => void;
+}
+
+const ExpenseForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
-
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -68,7 +73,7 @@ const ExpenseForm = () => {
           ))}
         </select>
         {errors.category && (
-          <p className="text danger small">{errors.category.message}</p>
+          <p className="text-danger small">{errors.category.message}</p>
         )}
       </div>
       <button className="btn btn-primary">Submit</button>
