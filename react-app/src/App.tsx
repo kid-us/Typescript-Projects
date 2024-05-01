@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       <div className="container">
-        <div className="p-5  row justify-content-center">
+        <div className="p-5 row justify-content-center fw-semibold">
           <div className="col-6 shadow p-5">
             <p className="fw-semibold font-monospace fs-5">Expense Tracker</p>
             <div className="mb-5">
