@@ -1,17 +1,12 @@
-import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { CanceledError } from "./services/api-clients";
-import userServices, { User } from "./services/user-service";
+import { useUser } from "./hooks/useUser";
+import userService, { User } from "./services/user-service";
 
 // import ProductList from "./components/ProductList";
 // import Expense from "./expense-tracker/components/Expesnse";
 
 function App() {
   // const focusRef = useRef<HTMLInputElement>(null);
-
-  const [users, setUsers] = useState<User[]>([]);
-  const [errors, setErrors] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   // const [category, setCategory] = useState("");
 
   // useEffect(() => {
@@ -19,32 +14,17 @@ function App() {
   // });
 
   // Get User
-  useEffect(() => {
-    setIsLoading(true);
-
-    const { request, cancel } = userServices.getAll();
-
-    request
-      .then((response) => {
-        setIsLoading(false);
-        setUsers(response.data);
-      })
-      .catch((error) => {
-        if (error instanceof CanceledError) return;
-        setErrors(error.message);
-        setIsLoading(false);
-      });
-
-    return () => cancel();
-  }, []);
 
   // Delete User
+
+  const { users, setErrors, setUsers, errors, isLoading } = useUser();
+
   const deleteUser = (user: User) => {
     const original = [...users];
 
     setUsers(users.filter((u) => u.id !== user.id));
 
-    userServices.delete(user.id).catch((error) => {
+    userService.delete(user.id).catch((error) => {
       setErrors(error.message);
       setUsers(original);
     });
@@ -56,7 +36,7 @@ function App() {
     const newUser = { id: 0, name: "Lorem" };
     setUsers([...users, newUser]);
 
-    userServices
+    userService
       .add(newUser)
       .then((response) => setUsers([...users, response.data]))
       .catch((error) => {
@@ -71,7 +51,7 @@ function App() {
     const updatedUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    userServices.update(user.id, updatedUser).catch((error) => {
+    userService.update(user.id, updatedUser).catch((error) => {
       setErrors(error.message);
       setUsers(original);
     });
