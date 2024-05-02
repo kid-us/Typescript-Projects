@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, CanceledError } from "axios";
 // import ProductList from "./components/ProductList";
 // import Expense from "./expense-tracker/components/Expesnse";
 interface User {
@@ -19,23 +19,30 @@ function App() {
   // });
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.get<User[]>(
-          "https://jsonplaceholder.typicode.com/users"
-        );
-        setUsers(res.data);
-      } catch (err) {
-        setErrors((err as AxiosError).message);
-      }
-    };
+    // const fetchUsers = async () => {
+    //   try {
+    //     const res = await axios.get<User[]>(
+    //       "https://jsonplaceholder.typicode.com/users"
+    //     );
+    //     setUsers(res.data);
+    //   } catch (err) {
+    //     setErrors((err as AxiosError).message);
+    //   }
+    // };
+    // fetchUsers();
+    const controller = new AbortController();
 
-    fetchUsers();
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+        signal: controller.signal,
+      })
+      .then((response) => setUsers(response.data))
+      .catch((error) => {
+        if (error instanceof CanceledError) return;
+        setErrors(error.message);
+      });
 
-    // axios
-    //   .get<User[]>("https://jsonplaceholder.typicode.com/xusers")
-    //   .then((response) => setUsers(response.data))
-    //   .catch((error) => setErrors(error.message));
+    return () => controller.abort();
   }, []);
 
   return (
