@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import apiClients, { CanceledError } from "./services/api-clients";
+import { CanceledError } from "./services/api-clients";
+import userServices, { User } from "./services/user-service";
 
 // import ProductList from "./components/ProductList";
 // import Expense from "./expense-tracker/components/Expesnse";
-interface User {
-  id: number;
-  name: string;
-}
+
 function App() {
   // const focusRef = useRef<HTMLInputElement>(null);
 
@@ -22,24 +20,11 @@ function App() {
 
   // Get User
   useEffect(() => {
-    // const fetchUsers = async () => {
-    //   try {
-    //     const res = await axios.get<User[]>(
-    //       "https://jsonplaceholder.typicode.com/users"
-    //     );
-    //     setUsers(res.data);
-    //   } catch (err) {
-    //     setErrors((err as AxiosError).message);
-    //   }
-    // };
-    // fetchUsers();
-    const controller = new AbortController();
     setIsLoading(true);
 
-    apiClients
-      .get<User[]>("/users", {
-        signal: controller.signal,
-      })
+    const { request, cancel } = userServices.getAllUsers();
+
+    request
       .then((response) => {
         setIsLoading(false);
         setUsers(response.data);
@@ -50,7 +35,7 @@ function App() {
         setIsLoading(false);
       });
 
-    return () => controller.abort();
+    return () => cancel();
   }, []);
 
   // Delete User
@@ -59,7 +44,7 @@ function App() {
 
     setUsers(users.filter((u) => u.id !== user.id));
 
-    apiClients.delete("/users/" + user.id).catch((error) => {
+    userServices.deleteUser(user.id).catch((error) => {
       setErrors(error.message);
       setUsers(original);
     });
@@ -71,8 +56,8 @@ function App() {
     const newUser = { id: 0, name: "Lorem" };
     setUsers([...users, newUser]);
 
-    apiClients
-      .post("/users", newUser)
+    userServices
+      .addUser(newUser)
       .then((response) => setUsers([...users, response.data]))
       .catch((error) => {
         setErrors(error.message);
@@ -86,7 +71,7 @@ function App() {
     const updatedUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    apiClients.patch("/users/" + user.id, updatedUser).catch((error) => {
+    userServices.updateUser(user.id, updatedUser).catch((error) => {
       setErrors(error.message);
       setUsers(original);
     });
