@@ -80,6 +80,23 @@ function App() {
       });
   };
 
+  // Update User
+  const updateUser = (user: User) => {
+    const original = [...users];
+    const updatedUser = { ...user, name: user.name + "!" };
+    setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
+
+    axios
+      .patch(
+        "https://jsonplaceholder.typicode.com/users/" + user.id,
+        updatedUser
+      )
+      .catch((error) => {
+        setErrors(error.message);
+        setUsers(original);
+      });
+  };
+
   return (
     <>
       <div className="container mt-5">
@@ -109,13 +126,21 @@ function App() {
               key={user.id}
               className="list-group-item d-flex justify-content-between"
             >
-              {user.name}{" "}
-              <button
-                className="btn btn-outline-danger small"
-                onClick={() => deleteUser(user)}
-              >
-                Delete
-              </button>
+              {user.name}
+              <div>
+                <button
+                  className="btn btn-outline-secondary mx-2"
+                  onClick={() => updateUser(user)}
+                >
+                  Update
+                </button>
+                <button
+                  className="btn btn-outline-danger small"
+                  onClick={() => deleteUser(user)}
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           ))}
         </ul>
