@@ -11,7 +11,7 @@ function App() {
   // const focusRef = useRef<HTMLInputElement>(null);
 
   const [users, setUsers] = useState<User[]>([]);
-
+  const [errors, setErrors] = useState("");
   // const [category, setCategory] = useState("");
 
   // useEffect(() => {
@@ -21,13 +21,15 @@ function App() {
   useEffect(() => {
     // document.title = "My App";
     axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users")
-      .then((response) => console.log(setUsers(response.data)));
+      .get<User[]>("https://jsonplaceholder.typicode.com/xusers")
+      .then((response) => setUsers(response.data))
+      .catch((error) => setErrors(error.message));
   });
 
   return (
     <>
       <div className="container mt-5">
+        {errors && <p className="text-danger small">{errors}</p>}
         {/* <Expense /> */}
         {/* <input ref={focusRef} type="text" className="form-control" /> */}
         {/* <label htmlFor="category" className="form-label">
