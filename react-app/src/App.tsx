@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import axios, { AxiosError, CanceledError } from "axios";
+import apiClients, { CanceledError } from "./services/api-clients";
+
 // import ProductList from "./components/ProductList";
 // import Expense from "./expense-tracker/components/Expesnse";
 interface User {
@@ -19,6 +20,7 @@ function App() {
   //   if (focusRef.current) focusRef.current.focus();
   // });
 
+  // Get User
   useEffect(() => {
     // const fetchUsers = async () => {
     //   try {
@@ -34,8 +36,8 @@ function App() {
     const controller = new AbortController();
     setIsLoading(true);
 
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+    apiClients
+      .get<User[]>("/users", {
         signal: controller.signal,
       })
       .then((response) => {
@@ -57,12 +59,10 @@ function App() {
 
     setUsers(users.filter((u) => u.id !== user.id));
 
-    axios
-      .delete("https://jsonplaceholder.typicode.com/susers/" + user.id)
-      .catch((error) => {
-        setErrors(error.message);
-        setUsers(original);
-      });
+    apiClients.delete("/users/" + user.id).catch((error) => {
+      setErrors(error.message);
+      setUsers(original);
+    });
   };
 
   // Add User
@@ -71,8 +71,8 @@ function App() {
     const newUser = { id: 0, name: "Lorem" };
     setUsers([...users, newUser]);
 
-    axios
-      .post("https://jsonplaceholder.typicode.com/users", newUser)
+    apiClients
+      .post("/users", newUser)
       .then((response) => setUsers([...users, response.data]))
       .catch((error) => {
         setErrors(error.message);
@@ -86,15 +86,10 @@ function App() {
     const updatedUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    axios
-      .patch(
-        "https://jsonplaceholder.typicode.com/users/" + user.id,
-        updatedUser
-      )
-      .catch((error) => {
-        setErrors(error.message);
-        setUsers(original);
-      });
+    apiClients.patch("/users/" + user.id, updatedUser).catch((error) => {
+      setErrors(error.message);
+      setUsers(original);
+    });
   };
 
   return (
