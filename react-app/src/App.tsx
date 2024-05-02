@@ -51,6 +51,19 @@ function App() {
     return () => controller.abort();
   }, []);
 
+  const deleteUser = (user: User) => {
+    const original = [...users];
+
+    setUsers(users.filter((u) => u.id !== user.id));
+
+    axios
+      .delete("https://jsonplaceholder.typicode.com/susers/" + user.id)
+      .catch((error) => {
+        setErrors(error.message);
+        setUsers(original);
+      });
+  };
+
   return (
     <>
       <div className="container mt-5">
@@ -73,9 +86,20 @@ function App() {
         <ProductList category={category} /> */}
 
         {/* Fetching Data */}
-        <ul>
+        <ul className="list-group">
           {users.map((user) => (
-            <li key={user.id}>{user.name}</li>
+            <li
+              key={user.id}
+              className="list-group-item d-flex justify-content-between"
+            >
+              {user.name}{" "}
+              <button
+                className="btn btn-outline-danger small"
+                onClick={() => deleteUser(user)}
+              >
+                Delete
+              </button>
+            </li>
           ))}
         </ul>
       </div>
