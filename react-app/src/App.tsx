@@ -51,6 +51,7 @@ function App() {
     return () => controller.abort();
   }, []);
 
+  // Delete User
   const deleteUser = (user: User) => {
     const original = [...users];
 
@@ -58,6 +59,21 @@ function App() {
 
     axios
       .delete("https://jsonplaceholder.typicode.com/susers/" + user.id)
+      .catch((error) => {
+        setErrors(error.message);
+        setUsers(original);
+      });
+  };
+
+  // Add User
+  const addUser = () => {
+    const original = [...users];
+    const newUser = { id: 0, name: "Lorem" };
+    setUsers([...users, newUser]);
+
+    axios
+      .post("https://jsonplaceholder.typicode.com/users", newUser)
+      .then((response) => setUsers([...users, response.data]))
       .catch((error) => {
         setErrors(error.message);
         setUsers(original);
@@ -86,6 +102,7 @@ function App() {
         <ProductList category={category} /> */}
 
         {/* Fetching Data */}
+
         <ul className="list-group">
           {users.map((user) => (
             <li
@@ -102,6 +119,9 @@ function App() {
             </li>
           ))}
         </ul>
+        <button className="btn btn-primary mt-3 w-25" onClick={addUser}>
+          Add
+        </button>
       </div>
     </>
   );
