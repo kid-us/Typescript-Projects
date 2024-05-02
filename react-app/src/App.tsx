@@ -12,6 +12,7 @@ function App() {
 
   const [users, setUsers] = useState<User[]>([]);
   const [errors, setErrors] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   // const [category, setCategory] = useState("");
 
   // useEffect(() => {
@@ -31,15 +32,20 @@ function App() {
     // };
     // fetchUsers();
     const controller = new AbortController();
+    setIsLoading(true);
 
     axios
       .get<User[]>("https://jsonplaceholder.typicode.com/users", {
         signal: controller.signal,
       })
-      .then((response) => setUsers(response.data))
+      .then((response) => {
+        setIsLoading(false);
+        setUsers(response.data);
+      })
       .catch((error) => {
         if (error instanceof CanceledError) return;
         setErrors(error.message);
+        setIsLoading(false);
       });
 
     return () => controller.abort();
@@ -48,6 +54,7 @@ function App() {
   return (
     <>
       <div className="container mt-5">
+        {isLoading && <div className="spinner-border"></div>}
         {errors && <p className="text-danger small">{errors}</p>}
         {/* <Expense /> */}
         {/* <input ref={focusRef} type="text" className="form-control" /> */}
